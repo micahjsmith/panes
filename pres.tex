@@ -1,0 +1,158 @@
+\documentclass{beamer}
+\setbeamertemplate{caption}[numbered]
+\usetheme{Boadilla}
+% \usepackage{beamerthemesplit} // Activate for custom appearance
+
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{threeparttable}
+
+\title{Matthew Cocci's Potent Productivity}
+\author{Micah Smith}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Introduction}
+\subsection{Historical productivity}
+\frame
+{
+  \frametitle{Cocci is very productive}
+
+  \begin{itemize}
+  \item<1-> This is pretty obvious to most of us.
+  \item<2-> How does he do it?
+  \item<3-> No one really knows.
+  \end{itemize}
+}
+
+\subsection{Motivation of empirical study}
+\frame
+{
+  \frametitle{Motivation of empirical study}
+
+  \begin{itemize}
+  \item<1-> Collect data to document productivity for future generations of RAs.
+  \item<2-> Conduct inference on causes (and \textit{effects}) of productivity.
+    \begin{itemize}
+    \item<3-> Cocci is a big fan of the podcast Serial.
+    \item<4-> Presumably, his productivity decreased on days in which he was listening to a new Serial episode.
+    \item<5-> If we could analyze his productivity over time, we could determine on which days new episodes of Serial were released.
+    \end{itemize}
+  \item<6-> Embarrass him in front of all his loved ones.
+
+  \end{itemize}
+}
+
+\subsection{Description of data}
+\frame
+{
+  \frametitle{Description of data}
+
+  \begin{itemize}
+  \item<1-> Cocci uses the \texttt{tmux} utility on the RAN to manage large collections of "panes", or pseudo terminal sessions.
+  \item<2-> Make observations of the number of panes that Cocci has open at a given point to get a sense of productivity over time.
+  \item<3-> I collect a novel dataset of hourly observations of the number of panes open:
+    \begin{itemize}
+    \item<4-> Timestamped at 9am through 5pm, seven days a week.
+    \item<5-> Data collected from August 11, 2014 to yesterday (July 21, 2015).
+    \item<6-> 3100 hourly observations over 345 days in total.
+    \item<7-> Don't even worry about how I did this.
+    \end{itemize}
+  \end{itemize}
+}
+
+\section{Pretty tables/pictures}
+\subsection{Summary statistics}
+\frame
+{
+  \frametitle{Summary statistics}
+  
+  \begin{table}
+  \caption{Description of hourly data}
+  \input{Results/Tables/describe_hourly.tex}
+    \begin{tablenotes}
+      \footnotesize
+      \item Hours excluded from sample are non-workdays or days on which the RAN was reset.
+    \end{tablenotes} 
+  \end{table}
+}
+
+\frame
+{
+  \frametitle{Summary statistics}
+  
+  \begin{table}[htbp]
+  \caption{Description of daily (collapsed) data}
+  \input{Results/Tables/describe_daily.tex}
+      \begin{tablenotes}
+      \footnotesize
+  \item Days excluded from sample are non-workdays or days on which the RAN was reset. \texttt{has\_episode\_today} is marked if an episode of Serial was released on that day.
+    \end{tablenotes} 
+    \end{table}
+}
+
+\subsection{Graphical trends}
+\frame
+{
+  \frametitle{Hourly trend}
+  
+  \begin{center}
+  \includegraphics[scale=0.35]{Results/Plots/mean_abs_prod_hrly_excl_reset_only_workdays.eps}
+  \end{center}
+}
+
+\frame
+{
+  \frametitle{Weekly trend}
+  
+  \begin{center}
+  \includegraphics[scale=0.35]{Results/Plots/mean_abs_prod_excl_reset.eps}
+  \end{center}
+}
+
+\section{Model}
+\frame
+{
+\frametitle{Model: Description}
+\begin{itemize}
+\item<1-> Use absolute change in panes as a rough proxy for hourly productivity, and aggregated absolute hourly change in panes as a rougher proxy for daily productivity.
+\item<2-> Include squared term to capture all of the super duper non-linear effects we expect.
+\item<3-> Control for day of the week as well as Brent Crude spot prices.
+\item<3-> Train a boosted decision trees classifier, because why not, and because Cocci deserves only the best.
+\item<4-> Train on data from August 11, 2014 to March 31, 2015; test on data from April 1 to yesterday.
+\end{itemize}
+}
+
+\frame
+{
+\frametitle{Model: Results}
+\begin{table}[htbp]
+\caption{Days with potential Serial episode releases}
+\input{Results/Tables/pred_high.tex}
+\begin{tablenotes}
+\begin{footnotesize}
+\item Last \textit{known} episode of Serial released on December 18, 2014.
+\end{footnotesize}
+\end{tablenotes}
+\end{table}
+
+}
+
+\section{Conclusions}
+\frame
+{
+\frametitle{Conclusions}
+\begin{itemize}
+\item<1-> Based on Cocci's productivity trends, an episode of Serial was released with 90\% certainty on May 12. It's just that no one but him has noticed yet.
+\item<2-> Good luck at Princeton!
+\item<3-> Do Something Good Everyday!
+\end{itemize}
+}
+
+\end{document}

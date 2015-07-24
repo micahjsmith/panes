@@ -1,0 +1,6 @@
+*.eps
+*.pyc
+*.pdf
+pres.*
+!pres.tex
+!pres.pdf
