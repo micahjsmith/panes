@@ -4,3 +4,4 @@
 pres.*
 !pres.tex
 !pres.pdf
+!Archive/*.pdf
